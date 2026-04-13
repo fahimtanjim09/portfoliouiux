@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Creative Portfolio</title>
+    <title>A.H.M. Fahim Tanjim</title>
     
     <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -19,11 +19,10 @@
 </head>
 <body>
 
-    <!-- NAVIGATION -->
     <header>
         <div class="logo"><span><>:<></span></div>
         
-        <!-- HAMBURGER MENU ICON (Visible on Mobile) -->
+
         <div class="menu-toggle" id="mobile-menu">
             <i class="fa-solid fa-bars"></i>
         </div>
@@ -38,15 +37,12 @@
         </nav>
     </header>
 
-    <!-- HERO SECTION -->
     <section class="hero" id="home">
         <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
             <h1>Hi, I'm <span>A.H.M. Fahim Tanjim</span></h1>
             <p>I'm a <span id="typing-text"></span></p>
             <div class="hero-btns">
                 <a href="#projects" class="btn">View My Work</a>
-                <!-- RESUME DOWNLOAD BUTTON -->
-                <!-- Make sure you have a file named 'resume.pdf' in your folder -->
                 <a href="A.H.M. Fahim Tanjim ( CV ) with photo1.pdf" download class="btn btn-outline">
                     <i class="fa-solid fa-download"></i> Resume
                 </a>
@@ -54,12 +50,10 @@
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
     <section class="section" id="about">
         <h2 class="section-title" data-aos="fade-down">About Me</h2>
         <div class="about-content">
             <div class="about-img" data-aos="fade-right">
-                <!-- REPLACE THIS URL WITH YOUR LOCAL IMAGE (e.g., ./images/profile.jpg) -->
                 <img src="Portfolio pic.jpeg" alt="Profile Picture">
             </div>
             <div class="about-text" data-aos="fade-left">
@@ -69,7 +63,6 @@
         </div>
     </section>
 
-    <!-- SKILLS SECTION -->
     <section class="section" id="skills">
         <h2 class="section-title" data-aos="fade-down">My Skills</h2>
         <div class="skills-container">
@@ -167,7 +160,6 @@
             <!-- PROJECT CARD 1 -->
             <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="project-img">
-                    <!-- REPLACE WITH LOCAL IMAGE (e.g., ./images/project1.jpg) -->
                     <img src="warehouse.png" alt="Project 1">
                 </div>
                 <div class="project-info">
@@ -270,24 +262,23 @@
     <section class="section" id="contact">
         <h2 class="section-title" data-aos="fade-down">Get In Touch</h2>
         <div class="contact-container" data-aos="zoom-in">
-            <!-- 
-                SETUP FOR FORMSPREE: 
-                1. Go to formspree.io and create a free form.
-                2. Copy your unique URL (e.g., https://formspree.io/f/xvngwqkz)
-                3. Paste it in the 'action' attribute below.
-            -->
-            <form class="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
+          
+            <form class="contact-form" onsubmit="sendMail(event)">
+    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+
+            <button type="submit" class="btn">Send Message</button>
+        </form>
         </div>
     </section>
 
@@ -368,4 +359,39 @@
         });
     </script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("zk4Gd1UprV1ggr_nc"); // from EmailJS dashboard
+})();
+
+function sendMail(e) {
+  e.preventDefault();
+
+  let name = document.querySelector("[name='name']").value;
+  let email = document.querySelector("[name='email']").value;
+  let message = document.querySelector("[name='message']").value;
+
+  let params = {
+    from_name: name,
+    from_email: email,
+    message: message
+  };
+
+  // Send to YOU
+   emailjs.send("service_xy14o9n", "template_5ok4vxt", params)
+    .then(function(response) {
+        console.log("Sent to owner", response);
+    });
+
+  // 📩 Auto reply to visitor
+  emailjs.send("service_xy14o9n", "template_6cd87mj", params)
+    .then(function(response) {
+        console.log("Auto reply sent", response);
+    });
+
+  alert("Message sent successfully!");
+}
+</script>
 </html>
